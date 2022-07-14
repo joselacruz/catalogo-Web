@@ -22,14 +22,22 @@ header .profile a {
     color: white;
     font-size: 38px;
 }
-
-header .profile a::before {
-    position: absolute;
-    border-radius: 50px;
-    width: 13px;
-    height: 13px;
-    background-color: red;
+.header-icon-container{
+ position: relative;;
+}
+header .icofont-cart-alt{
     color: white;
+    font-size: 40px;
+}
+
+header .Header__circle{
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    position: relative;
+    top: -21px;
+    left: -3px;
 }
 
 
