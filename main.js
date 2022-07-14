@@ -32,13 +32,13 @@ fetch("https://api.tauros.io/api/v2/coins/")
     .then(data => {
 
         const coins = data.payload.cryto;
-        console.log(coins);
 
         coins.forEach(item => {
-            console.log(item);
 
             items.appendChild(newCoin(item));
         });
+
+        // TODO quit loader
 
     });
 
