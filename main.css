@@ -1,0 +1,50 @@
+header {
+    align-items: center;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    justify-content: space-between;
+    width: 100%;
+}
+
+header h1 {
+    color: white;
+}
+
+header .profile {
+    padding: 30px;
+}
+
+header .profile a {
+    color: white;
+    font-size: 38px;
+}
+
+header .profile a::before {
+    position: absolute;
+    border-radius: 50px;
+    width: 13px;
+    height: 13px;
+    background-color: red;
+    color: white;
+}
+
+
+.products {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-start: 100px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+    margin: .5em;
+    padding: .3em;
+    cursor: pointer;
+}
