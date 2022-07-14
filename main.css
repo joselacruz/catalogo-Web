@@ -62,3 +62,8 @@ header .Header__circle{
     color: black;
     font-size: 22px;
 }
+
+
+.color {
+    color: red;
+}
