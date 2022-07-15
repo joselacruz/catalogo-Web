@@ -35,7 +35,7 @@ function newCoin(coin) {
             title.classList.toggle("color"); 
         }
         else {
-            alert ("Ya wey! No Hay Mas")
+            alert (`Ya wey! No Hay Mas ${title.textContent}`)
             div.removeEventListener("click", newAmount);
             title.classList.toggle("title-color-empty"); 
         }
