@@ -61,7 +61,7 @@ header .icofont-cart-alt{
     border-color: #dfe1e500;
     cursor: pointer;
     width: 155px;
-    height: 220px;
+    min-height: 220px;
     background-color: #f1f1f1;
     border-radius: 10px;
 }
@@ -74,10 +74,13 @@ header .icofont-cart-alt{
 
 
 .color {
-    color: red;
+    color: rgb(27, 131, 200);
 }
 
-
+.title-color-empty{
+    color: #dba0a0;;
+    text-decoration: line-through;
+}
 
 
 .lds-circle {
@@ -136,3 +139,17 @@ header .icofont-cart-alt{
     border-color: #dfe1e500;
     background-color: white;
  }
+
+ .stock-amount {
+    color: rgb(65, 65, 65);
+    font-weight: bolder;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 5px 0px 5px;
+}
+ 
+.stock-amount::before{
+    content: "In Stock: ";
+    font-size: 0.9em;
+    color: rgb(196, 115, 115);
+}
