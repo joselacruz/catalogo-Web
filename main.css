@@ -213,3 +213,8 @@ background-repeat: no-repeat;
     background-color: red;
    
 }
+
+.shopping_cart_list {
+    position: absolute;
+    top: 0;
+}
