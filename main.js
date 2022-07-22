@@ -65,10 +65,10 @@ function newAmount(event) {
         numero.textContent = countItem;
         numero.classList.add("Header-circle-quanty");
 
-        // debugger
+        // agregar elementos al carrito
         shopping_cart[own.id] = {
             title: title.innerHTML,
-            amount: shopping_cart[own.id] ? shopping_cart[own.id].amount + 1 : 1,
+            amount: shopping_cart[own.id] ? shopping_cart[own.id].amount + 1 : 1, // operador ternario.
         }
 
         //Identifico la  card  que iterar al hacer click para que  
