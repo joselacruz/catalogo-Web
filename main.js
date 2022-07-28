@@ -19,37 +19,79 @@ function cerrandoCarrito() {
     // carritoContainer.classList.add("cartNodal");
     carritoContainer.classList.remove("displayNodal");
     clearNodal();
-
 }
+
+
 
 // Funcion que Muestra el Nodal a darle click al carrito
 function displayNodal() {
-
+    
     Object.keys(shopping_cart).forEach(key => {
         let data = shopping_cart[key];
         writeNodal(data.title, data.amount);
     });
 
+    var contenedorCart = document.getElementById("list");
+    var divsCart = contenedorCart.getElementsByTagName("div");
+   for(var i=0; i < divsCart.length; i++){
+   let spanLess =  divsCart[i].getElementsByTagName("span")[1];
+   let spanPlus =  divsCart[i].getElementsByTagName("span")[0];
+   let coinbit = divsCart[i].getElementsByTagName("p")[0];
+   
+  
+   spanLess.addEventListener("click", event => {
+    if(coinbit.textContent > 0) {coinbit.textContent = --coinbit.textContent;
+        countItem = --countItem;
+        numero.textContent = countItem;
+        
+        
+    }
+      
+});
+
+   spanPlus.addEventListener("click", event => {
+    coinbit.textContent = ++coinbit.textContent; 
+    countItem = ++coinbit.textContent;
+    numero.textContent = countItem;
+   });
+
+  };
+
     carritoContainer.classList.add("displayNodal");
+   
 }
 
+
+
+
 // Funcion que escribe los elementos html del carrito
-function writeNodal(title, amount) {
+function writeNodal(title, amount,) {
     const coinDiv = document.createElement("div");
     coinDiv.classList.add("item_crypto");
     const coinTitle = document.createElement("h3");
+    coinTitle.classList.add("crypto_cart_title");
     const monto = document.createElement("p");
+    monto.setAttribute("id","monto");
     coinTitle.textContent = title;
     monto.textContent = amount;
+    const undo = document.createElement("span");
+    const rendo = document.createElement("span");
+    undo.textContent = "+";
+    rendo.textContent = "-";
+    coinDiv.appendChild(undo);
+    coinDiv.appendChild(rendo);
     coinDiv.appendChild(monto);
     coinDiv.appendChild(coinTitle);
     shopping_cart_container.appendChild(coinDiv);
+
 }
+
 
 // Funcion que limpia los elementos html del carrito
 function clearNodal() {
     shopping_cart_container.innerHTML = "";
 }
+
 
 //Funcion para agregar numeros al carrito y ir restando segun la cantidad disponible y mas..
 function newAmount(event) {
@@ -59,12 +101,14 @@ function newAmount(event) {
     let stockAmountTitle = own.getElementsByClassName("stock-amount")[0];
     const title = own.childNodes[0];
 
+    
+  
+
     if (stockAmountTitle.textContent > 0) {
         stockAmountTitle.textContent = --stockAmountTitle.textContent;
         countItem = ++countItem;
         numero.textContent = countItem;
         numero.classList.add("Header-circle-quanty");
-
         // agregar elementos al carrito
         shopping_cart[own.id] = {
             title: title.innerHTML,
@@ -95,7 +139,6 @@ function newCoin(coin) {
     div.classList.add("item");
     div.id = coin.coin;
     div.addEventListener("click", newAmount);
-
     title.textContent = coin.coin_name;
     title.classList.add("color");
     stockAmountTitle.classList.add("stock-amount");
@@ -106,6 +149,7 @@ function newCoin(coin) {
     div.appendChild(img);
     div.appendChild(stockAmountTitle);
     return div;
+    
 }
 
 fetch("https://api.tauros.io/api/v2/coins/")
@@ -126,4 +170,5 @@ fetch("https://api.tauros.io/api/v2/coins/")
 function hiddenPreloder() {
     loder.style.display = "none";
 }
+
 
