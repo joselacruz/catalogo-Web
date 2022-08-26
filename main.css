@@ -87,11 +87,8 @@ header .icofont-cart-alt{
 .lds-circle {
     position: absolute;
     top: calc(-32px - -50%);
+    right: calc(-32px - -49%);
     transform: translateZ(1px);
-}
-
-.lds-circle>div {
-    display: inline-block;
     width: 64px;
     height: 64px;
     margin: 8px;
@@ -99,6 +96,7 @@ header .icofont-cart-alt{
     background: #FDE057;
     animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 
 @keyframes lds-circle {
 
@@ -156,42 +154,70 @@ header .icofont-cart-alt{
 }
 
 .cartNodal {
-  opacity: 0;
+  display: none;
   position: absolute;
 }
 
 .displayNodal{
-    opacity: 1;
-    position: absolute;
-    width: 178px;
+    display: block;
+    position: relative;
+    float: right;
+    width: 282px;
     min-height: 100px;
-    top: 10px;
+    top: -66px;
     right: 3px;
     border-radius: 10px;
     background: #181717;
     box-shadow:  5px 5px 10px #262121,
              -5px -5px 10px #0c0b0b;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 .item_crypto{
     display: grid;
     grid-auto-flow: column;
-    width: 120px;
-    /*grid-template-columns: min-content;*/
+    width: 90%;
+    grid-template-rows: 50px;
+    grid-template-columns: repeat(4 ,min-content);
     gap: 10px;
-    background: #f7e8e9;
     border-radius: 6px;
     padding-inline-start: 4px;
     align-items: center;
+    border: 1px solid wheat;
+    padding: 3px;
+}
+.item_crypto img{
+    height: 100%;
+}
+.item_crypto span:nth-child(2) {
+    background-image: url(./icofont/svg/plus-321.png);
+    background-repeat: no-repeat;
+    display: block;
+    height: 32%;
+    width: 16px;
+}
+
+.item_crypto span:nth-child(3) {
+    background-image: url(./icofont/svg/substraction-323.png);
+    background-repeat: no-repeat;
+    display: block;
+    height: 32%;
+    width: 16px;
 }
 .item_crypto p {
     margin: 0;
-    color: black;
-    font-weight: bold;
-    grid-column: 2;
+    color: whitesmoke;
+    font-size: 20px;
+    font-weight: bolder;
+    grid-column: 3;
 }
 .crypto_cart_title{
     margin: 0;
+    color: whitesmoke;
+    font-size: 20px;
+    font-weight: bolder;
+    
 }
 .hiden-cart{ 
 position: absolute;
@@ -216,6 +242,37 @@ background-repeat: no-repeat;
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    padding-block-start: 10px;
+    padding-block-start: 30px;
     padding-block-end: 10px;
+}
+
+.animateByClick {
+ animation-name: crecer;
+ animation-duration: 0.3s;
+ 
+
+}
+.primary-button{
+    width: 250px;
+    height: 50px;
+    background-color: #99f031;
+    color: whitesmoke;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    align-self: center;
+    margin-block-end: 15px;
+}
+
+@keyframes crecer {
+    0%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
