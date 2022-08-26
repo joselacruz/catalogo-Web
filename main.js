@@ -1,6 +1,6 @@
 const items = document.getElementById("products");
 const loder = document.getElementById("lds-circle");
-let countItem = 0; //variable inicializada y declarada en 0 para usar newAmount()
+let countItem = 0; //variable inicializada y declarada en 0 para usar newAmount()git 
 
 // Monedas almacenas parara identificarlas en el Carrito.
 let shopping_cart = {};

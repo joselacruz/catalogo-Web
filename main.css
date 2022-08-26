@@ -276,3 +276,23 @@ background-repeat: no-repeat;
         transform: scale(1);
     }
 }
+
+@media (max-width: 641px) {
+    .cartNodal {
+        width: 100%;;
+        float: initial;
+        top: 100px;
+        right: 0;
+    }
+    .item_crypto{
+        width: 250px;
+        font-size: 14px;
+    }
+    .item{
+        width: 120px;
+        min-height: 0;
+    }
+    .crypto_cart_title{
+        font-size: 16px;
+    }
+}
