@@ -65,6 +65,7 @@ header .icofont-cart-alt{
     min-height: 220px;
     background-color: #f1f1f1;
     border-radius: 10px;
+    position: relative;
 }
 
 .item .add-btc {
@@ -73,7 +74,47 @@ header .icofont-cart-alt{
     font-size: 22px;
 }
 
+.item figure {
+    margin: 0;
+ 
+}
+.item img {
+   width: 100%;
+}
+.item .details-card {
+    position: absolute;
+    height: 66%;
+    top: 46px;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: -8px;
+    justify-content: center;
+    background-color: rgba(65, 65, 65, 0.313);
+    transform: scale(0);
+    transition: all 0.5s 0.2s ease-in-out;
+    color: whitesmoke;
 
+}
+.item .details-card p{
+    margin: 0;
+}
+.item .details-card p:nth-child(2)::before {
+    content: "Fee Withdraw: ";
+    
+} 
+.item .details-card p:nth-child(3)::before {
+    content: "Confirmations Required: ";
+} 
+.item:hover .details-card {
+    transform: scale(1);
+    
+}
+.item:hover figure {
+    opacity: 0.4;
+}
 .color {
     color: rgb(27, 131, 200);
 }
@@ -137,6 +178,7 @@ header .icofont-cart-alt{
     box-shadow: 0 1px 6px 0 #515252d9;
     border-color: #dfe1e500;
     background-color: white;
+    
  }
 
  .stock-amount {
@@ -186,6 +228,7 @@ header .icofont-cart-alt{
     align-items: center;
     border: 1px solid wheat;
     padding: 3px;
+    position: relative;
 }
 .item_crypto img{
     height: 100%;
@@ -196,6 +239,7 @@ header .icofont-cart-alt{
     display: block;
     height: 32%;
     width: 16px;
+    
 }
 
 .item_crypto span:nth-child(3) {
@@ -204,6 +248,39 @@ header .icofont-cart-alt{
     display: block;
     height: 32%;
     width: 16px;
+}
+.item_crypto span:nth-child(6) {
+    background-image: url(./icofont/svg/minus-13234.png);
+    background-repeat: no-repeat;
+    display: block;
+    height: 32%;
+    width: 16px;
+    position: absolute;
+    right: 4px;
+    top: 3px;
+}
+ .cart-plus {
+    background-image: url(./icofont/svg/add-to-basket-5854.png);
+    background-repeat: no-repeat;
+    display: block;
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    right: 4px;
+    bottom: 3px;
+}
+.cart-less{
+    background-image: url(./icofont/svg/remove-basket-5856.png);
+    background-repeat: no-repeat;
+    display: block;
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    left: 4px;
+    bottom: 3px;
+}
+.inactive {
+    display: none;
 }
 .item_crypto p {
     margin: 0;
@@ -294,5 +371,8 @@ background-repeat: no-repeat;
     }
     .crypto_cart_title{
         font-size: 16px;
+    }
+    .item .details-card {
+        font-size: 12px;
     }
 }

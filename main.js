@@ -11,8 +11,8 @@ const carritoContainer = document.getElementById("displayNodal");
 let shopping_cart_container =
   carritoContainer.getElementsByClassName("shopping_cart_list")[0];
 
-closeCarrito.addEventListener("click", cerrandoCarrito);
-// Funcion para cerrar el cart nodal
+closeCarrito.addEventListener("click",cerrandoCarrito);
+// Funcion para cerrar el cart nodal 
 function cerrandoCarrito() {
   carritoContainer.classList.remove("displayNodal");
 }
@@ -38,12 +38,13 @@ function writeNodal(title, amount, clas, idimg) {
   monto.textContent = amount;
   const rendo = document.createElement("span");
   const undo = document.createElement("span");
+  const remove = document.createElement("span");
   coinDiv.classList.add(clas);
-  coinDiv.append(img, rendo, undo, monto, coinTitle);
+  coinDiv.append(img, rendo, undo, monto, coinTitle,remove);
 
   shopping_cart_container.appendChild(coinDiv);
-
-  rendo.addEventListener("click", () => {
+ //boton + carrito
+  rendo.addEventListener("click", () => { 
     checkShoppingCart(true, coinDiv, monto);
     animate(rendo);
     setTimeout(() => {
@@ -51,6 +52,7 @@ function writeNodal(title, amount, clas, idimg) {
     }, 300);
   });
 
+ //boton - carrito
   undo.addEventListener("click", () => {
     checkShoppingCart(false, coinDiv, monto);
     animate(undo);
@@ -58,45 +60,77 @@ function writeNodal(title, amount, clas, idimg) {
       stopAnimate(undo);
     }, 300);
   });
+   //boton delete de los elementos del  carrito
+  remove.addEventListener("click", () => {
+    deleteElementCart(coinDiv);
+  })
 }
 
 //Funcion que incrementa y agrega la cantidad  de Objetos a (shopping_cart)
 
-function newAmount(event) {
+function newAmount(bolean) {
   let own = event.currentTarget;
-  animate(own);
-  setTimeout(() => {
-    stopAnimate(own);
-  }, 300);
-  let stockAmountTitle = own.getElementsByClassName("stock-amount")[0];
-  const title = own.childNodes[0];
-  const img = own.childNodes[1];
+  let stockAmountTitle = own.parentNode.getElementsByClassName("stock-amount")[0];
+  const title = own.parentNode.childNodes[0];
+  const img = own.parentNode.childNodes[1].childNodes[0];
+  let iconLessMainShow = own.parentNode.childNodes[5];
+  let iconPlusMainShow = own.parentNode.childNodes[4];
 
-  if (stockAmountTitle.textContent > 0) {
+  // agregar elementos al carrito  al clikear + body
+  if (stockAmountTitle.textContent > 0&&bolean) {
     stockAmountTitle.textContent = --stockAmountTitle.textContent;
     countItem = ++countItem;
     numero.textContent = countItem;
+  
     numero.classList.add("Header-circle-quanty");
-    // agregar elementos al carrito
-    shopping_cart[own.id] = {
+    shopping_cart[own.parentNode.id] = {
       title: title.innerHTML,
-      amount: shopping_cart[own.id] ? shopping_cart[own.id].amount + 1 : 1,
-      stock: parseInt(own.childNodes[2].textContent),
-      img: img.src,
+      amount: shopping_cart[own.parentNode.id] ? shopping_cart[own.parentNode.id].amount + 1 : 1,
+      stock: parseInt(own.parentNode.childNodes[2].textContent),
+      img:img.src,
+     
     };
-  } else {
-    alert(`Ya wey! No Hay Mas ${title.textContent}`);
-    title.classList.add("title-color-empty");
+    
+    if(stockAmountTitle.textContent < 1) {
+      title.classList.add("title-color-empty");
+      iconPlusMainShow.className = "inactive";
+      checkCartIsEmpy();
+    }
   }
 
-  shopping_cart_container.innerHTML = "";
+ 
+
+  shopping_cart_container.innerHTML = ""; //Para que los elementos del carrito no se repitan
   Object.keys(shopping_cart).forEach((key) => {
     let data = shopping_cart[key];
+    iconLessMainShow.className = "cart-less";
 
-    writeNodal(data.title, data.amount, key, data.img);
+   // Quitar  elementos al carrito  al clikear - body
+     if(!bolean && own.parentNode.id == key && data.amount > 0){
+      title.classList.remove("title-color-empty");
+      iconPlusMainShow.className = "cart-plus";
+    shopping_cart[own.parentNode.id] = {
+      title: title.innerHTML,
+      amount: shopping_cart[own.parentNode.id].amount = shopping_cart[own.parentNode.id].amount- 1 ,
+      stock: parseInt(own.parentNode.childNodes[2].textContent),
+      img:img.src,
+    };
+
+    stockAmountTitle.textContent = ++stockAmountTitle.textContent;
+    countItem = --countItem;
+    numero.textContent = countItem;
+   if(shopping_cart[own.parentNode.id].amount == 0) {
+    delete shopping_cart[own.parentNode.id];
+    checkCartIsEmpy();
+   
+   } 
+  }
+  carrito.addEventListener("click", displayNodal);
+  writeNodal(data.title, data.amount, key, data.img);
+  
   });
 
-  carrito.addEventListener("click", displayNodal);
+  
 }
 
 //Funcion que crea los cards de Cryptos
@@ -104,17 +138,49 @@ function newAmount(event) {
 function newCoin(coin) {
   const div = document.createElement("div");
   const title = document.createElement("h2");
+  const figure = document.createElement("figure");
   const img = document.createElement("img");
   const stockAmountTitle = document.createElement("h3");
+  const containerInfoCard = document.createElement("div");
+  containerInfoCard.classList.add('details-card');
+  const cardInfo1 = document.createElement("p");
+  const cardInfo2 = document.createElement("p");
+  const cardInfo3 = document.createElement("p");
+  const cartplus = document.createElement("span");
+  const cartless = document.createElement("span");
+  cartplus.classList.add("cart-plus");
+  cartless.classList.add("cart-less","inactive");
+  cardInfo1.textContent = coin.coin;
+  cardInfo2.textContent = coin.fee_withdraw;
+  cardInfo3.textContent = coin.confirmations_required;
   div.classList.add("item");
   div.id = coin.coin;
-  div.addEventListener("click", newAmount);
+  //boton  + de las card  vista principal 
+  cartplus.addEventListener("click",()=>{
+    newAmount(true);
+    animate(cartplus);
+    setTimeout(() => {
+      stopAnimate(cartplus);
+    }, 300);
+    
+  });
+    //boton  - de las card  vista principal 
+  cartless.addEventListener("click",()=>{
+    newAmount(false);
+    animate(cartless);
+    setTimeout(() => {
+      stopAnimate(cartless);
+    }, 300);
+
+  });
   title.textContent = coin.coin_name;
   title.classList.add("color");
   stockAmountTitle.classList.add("stock-amount");
   img.src = coin.coin_icon;
   stockAmountTitle.textContent = coin.decimals; //Cantidad de articulos disponible para cada card
-  div.append(title, img, stockAmountTitle);
+  figure.append(img);
+  containerInfoCard.append(cardInfo1,cardInfo2,cardInfo3);
+  div.append(title, figure, stockAmountTitle,containerInfoCard,cartplus,cartless);
   return div;
 }
 
@@ -122,6 +188,7 @@ fetch("https://api.tauros.io/api/v2/coins/")
   .then((response) => response.json())
   .then((data) => {
     const coins = data.payload.cryto;
+    
 
     coins.forEach((item) => {
       setTimeout(()=> {                   //tiempo de esperar para que el loder permanzca mas tiempo
@@ -133,6 +200,7 @@ fetch("https://api.tauros.io/api/v2/coins/")
     setTimeout(hiddenPreloder,3000);    //tiempo de esperar para que el loder permanzca mas tiempo
     return coins;
   });
+  
 
 function hiddenPreloder() {
   loder.style.display = "none";
@@ -158,6 +226,7 @@ function checkShoppingCart(operador, elementSelect, displayMonto) {
     let element = elementSelect.classList.contains(key);
     //Incrementar los numeros del carrito solo si el stock es mayor a cero y si fue clikeado el icon +
     if (element && data.stock > 0 && operador) {
+     
       countItem = ++countItem;
       numero.textContent = countItem;
       displayMonto.textContent = parseInt(displayMonto.textContent) + 1;
@@ -181,11 +250,7 @@ function checkShoppingCart(operador, elementSelect, displayMonto) {
     if (data.amount <= 0 && !operador) {
       delete shopping_cart[key];
       elementSelect.style.display = "none";
-      let isShoppingCartEmpty = Object.entries(shopping_cart).length === 0;
-      if (isShoppingCartEmpty) {
-        cerrandoCarrito();
-        numero.classList.remove("Header-circle-quanty");
-      }
+      checkCartIsEmpy();
     }
   });
 }
@@ -195,20 +260,60 @@ function checkShoppingCart(operador, elementSelect, displayMonto) {
 function interCardBody(dato, clave, bolean) {
   let lengtBody = items.childNodes.length;
   for (i = 0; lengtBody > i; i++) {
+    
     let obtainId = items.childNodes[i].id;
     let obtainStockTitle = items.childNodes[i].childNodes[2];
     let editClassTitle = items.childNodes[i].childNodes[0];
+    let editClassPlusBody = items.childNodes[i].childNodes[4];
+    let editClassLessBody = items.childNodes[i].childNodes[5];
 
     if (clave == obtainId) {
       obtainStockTitle.textContent = dato;
 
       if (dato == 0 && bolean) {
         editClassTitle.className = "color title-color-empty";
+        editClassPlusBody.className = "inactive"
       }
 
       if (dato > 0 && !bolean) {
         editClassTitle.className = "color";
+        editClassPlusBody.className = "cart-plus";
       }
+     
     }
   }
 }
+
+//Funcion para borrado rapido del articulos del carrito 
+//y interaccion las card de la vista principal para reponer el stock
+function deleteElementCart (elementSelect) {
+  Object.keys(shopping_cart).forEach((key) => {
+    let data = shopping_cart[key];
+    let element = elementSelect.classList.contains(key);
+   let body = items.childNodes;
+   body.forEach((item) => {
+    card = body[item];
+    console.log(card);
+    if(item.id === key && element ){
+      item.childNodes[2].textContent = data.stock + data.amount;
+      item.childNodes[0].className = "color";
+      delete shopping_cart[key];
+      elementSelect.style.display = "none";
+      countItem = countItem - data.amount;
+      numero.textContent = countItem; 
+      checkCartIsEmpy();
+    }
+   })
+  });
+}
+
+//Funcion que verifica si el objeto  del carrito esta vacio para cerrarlo automaticamentee
+
+function checkCartIsEmpy () {
+  let isShoppingCartEmpty = Object.entries(shopping_cart).length === 0;
+  if (isShoppingCartEmpty) {
+    cerrandoCarrito();
+    numero.classList.remove("Header-circle-quanty");
+ }
+}
+
