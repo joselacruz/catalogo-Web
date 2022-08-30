@@ -375,4 +375,18 @@ background-repeat: no-repeat;
     .item .details-card {
         font-size: 12px;
     }
+    .cart-plus{
+        height: 24px;
+        width: 24px;
+        right: -1px;
+        bottom: 2px;
+        background-size: 22px;
+    }
+    .cart-less{
+        height: 24px;
+        width: 24px;
+        bottom: 2px;
+        background-size: 22px;
+        left: 1px;
+    }
 }
