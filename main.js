@@ -95,7 +95,11 @@ function newAmount(bolean) {
       title.classList.add("title-color-empty");
       iconPlusMainShow.className = "inactive";
       checkCartIsEmpy();
+     
     }
+   
+        
+    
   }
 
  
@@ -293,10 +297,12 @@ function deleteElementCart (elementSelect) {
    let body = items.childNodes;
    body.forEach((item) => {
     card = body[item];
-    console.log(card);
+  
     if(item.id === key && element ){
       item.childNodes[2].textContent = data.stock + data.amount;
       item.childNodes[0].className = "color";
+      item.childNodes[4].className = "cart-plus";
+      item.childNodes[5].className = "inactive";
       delete shopping_cart[key];
       elementSelect.style.display = "none";
       countItem = countItem - data.amount;
