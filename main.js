@@ -84,7 +84,7 @@ function newAmount(bolean) {
   
     numero.classList.add("Header-circle-quanty");
     shopping_cart[own.parentNode.id] = {
-      title: title.innerHTML,
+      title: title.textContent,
       amount: shopping_cart[own.parentNode.id] ? shopping_cart[own.parentNode.id].amount + 1 : 1,
       stock: parseInt(own.parentNode.childNodes[2].textContent),
       img:img.src,
@@ -114,7 +114,7 @@ function newAmount(bolean) {
       title.classList.remove("title-color-empty");
       iconPlusMainShow.className = "cart-plus";
     shopping_cart[own.parentNode.id] = {
-      title: title.innerHTML,
+      title: title.textContent,
       amount: shopping_cart[own.parentNode.id].amount = shopping_cart[own.parentNode.id].amount- 1 ,
       stock: parseInt(own.parentNode.childNodes[2].textContent),
       img:img.src,
@@ -129,8 +129,10 @@ function newAmount(bolean) {
    
    } 
   }
+  let se = JSON.stringify(data.title);
   carrito.addEventListener("click", displayNodal);
   writeNodal(data.title, data.amount, key, data.img);
+console.log(se)
   
   });
 
